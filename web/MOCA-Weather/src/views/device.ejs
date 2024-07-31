@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Homepage </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4bd397',
+                        secondary: '#3a736c',
+                    },
+                },
+            },
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+
+<body class="bg-slate-900 flex flex-col items-start justify-start h-dvh text-slate-200">
+    <nav class="w-full py-4 px-4 bg-slate-800 flex flex-row items-center justify-between z-10">
+        <h1 class="text-2xl text-slate-100 font-bold">Device Info</h1>
+        <div>
+            <a class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                href="/device">Add a device</a>
+            <a class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-2 px-4 mx-2 rounded focus:outline-none focus:shadow-outline"
+                href="/devices">Devices</a>
+            <a class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                href="/device/<%= device.deviceId %>/config">Configure this device</a>
+        </div>
+    </nav>
+    <div class="flex flex-col items-center justify-center w-full relative">
+        <img src="/images/weather-station-2.png" alt="Background"
+            class="absolute m-auto z-0 w-2/5 object-cover object-center">
+
+        <div class="flex flex-row w-full h-full items-center justify-center">
+            <div
+                class="backdrop-blur-sm bg-slate-800/85 shadow-md rounded-md px-2 pt-2 pb-4 my-4 mr-2 ml-4 z-10 w-2/5 flex flex-col items-center justify-start">
+                <h2 class="text-2xl font-semibold text-center w-full text-slate-100">
+                    <%= device.name %>
+                </h2>
+                <div class="border-b border-slate-300 w-11/12 my-4"></div>
+                <div class="text-lg text-center w-full">
+                    <p>
+                        Username: <%= device.username %>
+                    </p>
+                    <p>
+                        Host: <%= device.host %>
+                    </p>
+                    <p>
+                        Port: <%= device.port %>
+                    </p>
+                    PubKey:<br>
+                    <p class="bg-slate-700/75 shadow-md rounded-md px-4 py-2 w-5/6 break-all m-auto my-2 text-base">
+                        <%= device.pubkey %>
+                    </p>
+                </div>
+            </div>
+            <div
+                class="backdrop-blur-sm bg-slate-800/85 shadow-md rounded-md pt-2 pb-4 my-4 mr-4 ml-2 z-10 w-3/5 flex flex-row flex-wrap items-center justify-center">
+                <div class="w-5/12 bg-slate-700/75 rounded my-2 mx-2" id="cpu_temp"></div>
+                <div class="w-5/12 bg-slate-700/75 rounded my-2 mx-2" id="temp"></div>
+                <div class="w-5/12 bg-slate-700/75 rounded my-2 mx-2" id="humidity"></div>
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const options = {
+            chart: {
+                maxHeight: "100%",
+                maxWidth: "100%",
+                type: "area",
+                fontFamily: "Inter, sans-serif",
+                dropShadow: {
+                    enabled: false,
+                },
+                toolbar: {
+                    show: false,
+                },
+            },
+            tooltip: {
+                enabled: true,
+                x: {
+                    show: false,
+                }, theme: 'dark',
+            },
+            fill: {
+                type: "gradient",
+                gradient: {
+                    opacityFrom: 0.55,
+                    opacityTo: 0,
+                    shade: "#1C64F2",
+                    gradientToColors: ["#1C64F2"],
+                },
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            stroke: {
+                width: 6,
+            },
+            grid: {
+                show: false,
+                strokeDashArray: 4,
+                padding: {
+                    left: 2,
+                    right: 2,
+                    top: 0
+                },
+            },
+            xaxis: {
+                labels: {
+                    show: false,
+                },
+                axisBorder: {
+                    show: false,
+                },
+                axisTicks: {
+                    show: false,
+                },
+            },
+            yaxis: {
+                show: false,
+            },
+        }
+
+        cpu_temp_options = JSON.parse(JSON.stringify(options))
+        temp_options = JSON.parse(JSON.stringify(options))
+        humidity_options = JSON.parse(JSON.stringify(options))
+
+        cpu_temp_options['title'] = {
+            text: 'Cpu temperature',
+            align: 'center',
+            margin: 10,
+            style: {
+                fontSize: '18px',
+                fontWeight: 'bold',
+                fontFamily: 'Helvetica, Arial, sans-serif',
+                color: '#4bd397'
+            }
+        }
+        temp_options['title'] = {
+            text: 'Temperature',
+            align: 'center',
+            margin: 10,
+            style: {
+                fontSize: '18px',
+                fontWeight: 'bold',
+                fontFamily: 'Helvetica, Arial, sans-serif',
+                color: '#4bd397'
+            }
+        }
+        humidity_options['title'] = {
+            text: 'Humidty',
+            align: 'center',
+            margin: 10,
+            style: {
+                fontSize: '18px',
+                fontWeight: 'bold',
+                fontFamily: 'Helvetica, Arial, sans-serif',
+                color: '#4bd397'
+            }
+        }
+
+        dataArray = <%- JSON.stringify(measures) %>;
+
+        
+        const cpu_temp_data = dataArray.map(obj => obj.cpu_temperature);
+        const temp_data = dataArray.map(obj => obj.temperature);
+        const humidity_data = dataArray.map(obj => obj.humidity);
+        const date_time_data = dataArray.map(obj => obj.createdAt)
+        cpu_temp_options['series'] = [
+            {
+                name: "CPU °C",
+                data: cpu_temp_data,
+                color: "#1A56DB",
+            },
+        ]
+        temp_options['series'] = [
+            {
+                name: "Temperature °C",
+                data: temp_data,
+                color: "#1A56DB",
+            },
+        ]
+        humidity_options['series'] = [
+            {
+                name: "Humidity",
+                data: humidity_data,
+                color: "#1A56DB",
+            },
+        ]
+        
+        cpu_temp_options['xaxis']['categories'] = date_time_data
+        temp_options['xaxis']['categories'] = date_time_data
+        humidity_options['xaxis']['categories'] = date_time_data
+
+        
+        if (document.getElementById("cpu_temp") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("cpu_temp"), cpu_temp_options);
+            chart.render();
+        }
+        if (document.getElementById("temp") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("temp"), temp_options);
+            chart.render();
+        }
+        if (document.getElementById("humidity") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(document.getElementById("humidity"), humidity_options);
+            chart.render();
+        }
+
+    </script>
+</body>
+
+</html>

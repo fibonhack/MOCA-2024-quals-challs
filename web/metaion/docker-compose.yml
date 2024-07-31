@@ -1,0 +1,19 @@
+services:
+
+  metaion-backend:
+    build: ./web
+    networks:
+      - metaion-intranet
+    ports:
+      - "20001:5000"
+
+  metaion-admin:
+    build: ./bot
+    environment:
+      FLAG: MOCA{f8ec919918656b48a3efb64da4f9538537166992c400e4085706735e7eef413e}
+    networks:
+      - metaion-intranet
+
+networks:
+  metaion:
+  metaion-intranet:

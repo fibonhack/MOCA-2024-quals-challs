@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://localhost:27017/mydatabase
+      - PORT=3000
+    restart: always
+    volumes:
+      - ./keys:/app/keys
+      - mongo-data:/data/db
+
+  device:
+    build: ./device
+    restart: always
+    environment:
+      - USER_NAME=target
+      - PUBLIC_KEY_FILE=/home/target/.ssh/authorized_keys
+    volumes:
+      - ./keys/id_rsa.pub:/home/target/.ssh/authorized_keys:ro
+
+volumes:
+  mongo-data:

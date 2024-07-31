@@ -1,0 +1,21 @@
+services:
+
+  raas-backend:
+    image: MSSS/backend
+    build: ./src
+    networks:
+      - RaaS-intranet
+    ports:
+      - "20001:5000"
+
+  raas-admin:
+    image: MSSS/admin
+    build: ./admin_bot
+    environment:
+      FLAG: MOCA{WH0_D035'N7_l0V3_4_g00D_0l'_W4F?}
+    networks:
+      - RaaS-intranet
+
+networks:
+  RaaS:
+  RaaS-intranet:

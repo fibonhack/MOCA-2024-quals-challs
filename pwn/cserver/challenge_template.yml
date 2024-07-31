@@ -1,0 +1,14 @@
+name: "CServer"
+author: marcogpt
+
+description: I made a simple client server as requested by a human. I hope it's secure enough.
+port: 10005
+host: "challs.{{ CTFD_URL }}"
+connection_info: "nc {{ host }} {{ port }}"
+# healthcheck: "checker.py HOST={{ host }} PORT={{ port }}"
+
+topics:
+- pwn
+
+files:
+- attachments/chall

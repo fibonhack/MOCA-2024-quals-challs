@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ProseMirror:focus {
+    outline: none;
+}
+
+.tiptap ul p,
+.tiptap ol p {
+    display: inline;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+    font-size: 14px;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+.tiptap {
+    height: 100%;
+    padding: 10px;
+}

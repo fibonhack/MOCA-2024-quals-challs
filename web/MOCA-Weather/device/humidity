@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+
+import random
+
+def humidity(min_value=15.0, max_value=90.0):
+    return random.uniform(min_value, max_value)
+
+if __name__ == "__main__":
+    humidity_value = humidity()
+    print(f"{humidity_value:.2f}",end='')

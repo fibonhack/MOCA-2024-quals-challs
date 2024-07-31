@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaaS</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E84545',
+                        secondary: '#903749',
+                    },
+                },
+            },
+        };
+
+    </script>
+</head>
+
+<body class="bg-zinc-900  flex flex-col items-center justify-center h-dvh">
+    <div
+        class="bg-zinc-800 shadow-md rounded-md px-8 pt-6 pb-8 mb-4 text-zinc-300 w-1/2 flex flex-col items-center justify-center">
+        <h3 class="text-2xl font-semibold text-center w-full text-zinc-100">Leaving RaaS</h3>
+        <div class="border-b border-zinc-300 w-full my-4"></div>
+        <h2 class="text-xl font-semibold text-center w-full text-zinc-100" id="title">{{title}}</h2>
+        <p class="text-lg text-center">
+            You followed a link that redirects to <br>
+            <p class="text-primary">{{url}}</p>
+        </p>
+        <a id="url"
+            class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline my-1"
+            href="{{url}}">Follow Link</a>
+        <p> Make sure you only follow links you trust!</p>
+    </div>
+</body>

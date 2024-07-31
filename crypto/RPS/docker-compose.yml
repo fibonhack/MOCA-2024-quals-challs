@@ -1,0 +1,9 @@
+services:
+  app:
+    build: ./src
+    restart: unless-stopped
+    environment:
+      FLAG: PWNX{CRC_st4nd5_f0r_C1ock_R5t1ng_Comp3t1ti0n}
+      KEY: 6a8c1650db9d87304420aacdc62d672c
+    ports:
+      - "5000:5000"

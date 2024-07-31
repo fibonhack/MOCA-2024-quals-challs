@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RPS</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f4f8;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+      }
+      .buttons {
+        display: flex;
+        justify-content: space-around;
+      }
+      button {
+        background-color: #6200ea;
+        color: #fff;
+        margin: 0.3rem;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #3700b3;
+      }
+
+      small {
+        display: block;
+        margin-top: 20px;
+        font-size: 14px;
+        color: #666;
+      }
+
+      #result {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      #result p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div id="result" class="hidden">
+        <p id="result-txt"></p>
+      </div>
+      <h1>Play</h1>
+      <div class="buttons">
+        <button onclick="play('rock')">🪨</button>
+        <button onclick="play('paper')">📄</button>
+        <button onclick="play('scissors')">✂️</button>
+      </div>
+      <small
+        >won <em id="won">{{state.won}}</em> /
+        <em id="played">{{state.played}}</em> played</small
+      >
+    </div>
+
+    <script>
+      const won = document.getElementById("won");
+      const played = document.getElementById("played");
+      const result_div = document.getElementById("result");
+      const result_txt = document.getElementById("result-txt");
+      const emojis = {
+        rock: "🪨",
+        paper: "📄",
+        scissors: "✂️",
+      };
+      async function play(userChoice) {
+        try {
+          const r = await fetch(`/play/${userChoice}`, { method: "POST" });
+          if (!r.ok) throw new Error("Something went wrong");
+
+          const json = await r.json();
+          played.textContent = Number(played.textContent) + 1;
+          const computerChoice = json["choice"];
+          if (userChoice === computerChoice) {
+            result = "it's a draw!";
+          } else if (
+            (userChoice === "rock" && computerChoice === "scissors") ||
+            (userChoice === "paper" && computerChoice === "rock") ||
+            (userChoice === "scissors" && computerChoice === "paper")
+          ) {
+            result = "you win!";
+            won.textContent = Number(won.textContent) + 1;
+          } else {
+            result = "you lose!";
+          }
+
+          result_txt.textContent = `Computer choose ${emojis[computerChoice]}, ${result}`;
+          result_div.classList.toggle("hidden");
+          setTimeout(() => {
+            result_div.classList.toggle("hidden");
+          }, 1000);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    </script>
+  </body>
+</html>

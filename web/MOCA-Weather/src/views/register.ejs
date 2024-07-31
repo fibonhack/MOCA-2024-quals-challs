@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Register </title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4bd397',
+            secondary: '#3a736c',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-slate-900 mx-10">
+  <div class="flex flex-col items-center justify-center h-dvh w-full text-slate-200">
+    <img src="/images/moca-verde.png" alt="Background" class="absolute m-auto z-0 object-scale-down h-2/3 object-center">
+    <form action="/register" method="POST" class="backdrop-blur-sm bg-slate-500/20 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-3/4 z-10">
+      <h1 class="text-2xl font-semibold mb-4 text-slate-100 text-center">Register</h1>
+      <% if (error) { %>
+        <div class="text-red-700 text-center text-xl font-semibold">
+          <%= error %>
+        </div>
+        <% } %>
+          <div class="mb-4">
+            <label class="block text-light text-sm font-bold mb-2 text-slate-200" for="username">Username:</label>
+            <input
+              class="shadow appearance-none rounded w-full py-2 px-3 backdrop-blur-sm bg-slate-700/20 mb-3 leading-tight text-slate-200 outline-none focus:shadow-outline"
+              type="text" id="username" name="username" required>
+          </div>
+          <div class="mb-6">
+            <label class="block text-light text-sm font-bold mb-2 text-slate-200" for="password">Password:</label>
+            <input
+              class="shadow appearance-none rounded w-full py-2 px-3 backdrop-blur-sm bg-slate-700/20 mb-3 leading-tight text-slate-200 outline-none focus:shadow-outline"
+              type="password" id="password" name="password" required>
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit">Register</button>
+          </div>
+    </form>
+  </div>
+</body>
+
+</html>

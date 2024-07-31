@@ -1,0 +1,16 @@
+name: "mapmaster"
+author: nick0ve
+
+description: Can you pwn python only mapping stuff?
+port: 10003
+host: "challs.{{ CTFD_URL }}"
+connection_info: "nc {{ host }} {{ port }}"
+# healthcheck: "checker.py HOST={{ host }} PORT={{ port }}"
+
+topics:
+- pwn
+- python
+
+files:
+- attachments/mapmaster.py
+- Dockerfile

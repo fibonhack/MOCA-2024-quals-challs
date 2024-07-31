@@ -1,0 +1,26 @@
+author: nick0ve
+category: pwn
+connection_info: nc challs.ifctf.fibonhack.it 10003
+description: 'Can you pwn python only mapping stuff?
+
+
+  Author: @nick0ve'
+extra:
+  decay: 100
+  initial: 500
+  minimum: 50
+files:
+- attachments/../src/mapmaster.py
+- Dockerfile
+flags:
+- MOCA{pr0t_wr1t3_m0d3_an0nym0us_spray_th1s_3ce14d720a26086fa662}
+host: challs.ifctf.fibonhack.it
+image: null
+name: mapmaster
+port: 10003
+state: hidden
+topics:
+- pwn
+- python
+type: dynamic
+value: 100

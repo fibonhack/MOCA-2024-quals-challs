@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+
+import json
+import subprocess
+
+config = {}
+default_values = {
+    "cpu_temperature": 35.0,
+    "temperature": 25.0,
+    "humidity": 80.0
+}
+
+try:
+    with open("/tmp/config.json", 'r') as f:
+        config = json.load(f)
+except Exception:
+    config = default_values
+
+if config == {}:
+    config = default_values
+
+measurement = {}
+keys = ["cpu_temperature", "temperature", "humidity"]
+
+for k in keys:
+    cmd = config.get(k)
+    measurement[k] = float(subprocess.check_output(cmd, shell=True).decode())
+
+print(json.dumps(measurement))

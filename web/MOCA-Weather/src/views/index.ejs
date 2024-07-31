@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Homepage </title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4bd397',
+                        secondary: '#3a736c',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="bg-slate-900 flex flex-col items-start justify-start h-dvh text-slate-200">
+    <nav class="w-full py-4 px-4 bg-slate-800 flex flex-row items-center justify-between z-10">
+        <h1 class="text-2xl text-slate-100 font-bold">MOCA Weather</h1>
+        <div>
+            <a class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline"
+                href="/device">Add a device</a>
+            <a class="bg-secondary hover:bg-primary focus:bg-primary text-light font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                href="/devices">Devices</a>
+        </div>
+    </nav>
+    <div class="flex flex-row w-full">
+        <div class="py-5 px-10 w-full relative z-0">
+            <img src="/images/pescara.jpg" class="rounded w-2/3">
+            <div
+                class="p-5 absolute inset-y-0 left-72 z-10 backdrop-blur-sm bg-slate-500/30 h-5/6 w-3/4 m-auto rounded text-right flex flex-col items-center justify-start overflow-auto">
+                <h1 class="text-2xl text-slate-100 font-bold text-right w-full">Always Dreamed of Visiting Pescara?</h1>
+                <div class="border-b border-slate-300 w-full my-8"></div>
+                <div class="text-lg font-semibold text-right w-full flex flex-col justify-start">
+                    <p>
+                        This is your chance! Enter our competition and win an unforgettable trip to Pescara, PLUS
+                        <br>
+                        an exclusive stay at the incredible MOCA Camp!
+                        <br>
+                        Experience stunning beaches, vibrant culture, and unique
+                        hacks.
+                        <br><br>
+                        Don't miss out - your dream vacation awaits!
+                        <br><br>
+                        While dreaming, don't forget to check the weather forecast provided to you by Fibonhack Forecasting!
+                    </p>
+                    <div class="flex w-full justify-end">
+                        <img src="/images/fibonhack.png" class="w-1/5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

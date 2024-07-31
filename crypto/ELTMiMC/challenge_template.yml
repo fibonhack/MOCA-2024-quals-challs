@@ -1,0 +1,15 @@
+name: "ELTMiMC"
+author: gio-d3141
+
+description: We just released a new SNARK-friendly hash function, now featuring even less than minimal multiplicative complexity!
+# port: 10004
+# host: "challs.{{ CTFD_URL }}"
+connection_info: "nc {{ host }} {{ port }}"
+# healthcheck: "checker.py HOST={{ host }} PORT={{ port }}"
+
+topics:
+  - crypto
+
+files:
+  - attachments/ELTMiMC.py
+  - attachments/Dockerfile

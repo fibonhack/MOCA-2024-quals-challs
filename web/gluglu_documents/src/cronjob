@@ -1,0 +1,1 @@
+*/5 * * * * rm /var/www/html/upload_your_shell_here/* 2 >& 1

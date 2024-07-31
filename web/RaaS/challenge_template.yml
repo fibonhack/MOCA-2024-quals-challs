@@ -1,0 +1,14 @@
+name: "Redirect as a service"
+author: b0n0b0
+
+description: This is a warm-up one-click XSS challenge
+port: 20001
+host: "challs.{{ CTFD_URL }}"
+connection_info: "http://{{ host }}:{{ port }}"
+# healthcheck: "checker.py HOST={{ host }} PORT={{ port }}"
+
+topics:
+- web
+
+files:
+- attachments/RaaS.zip

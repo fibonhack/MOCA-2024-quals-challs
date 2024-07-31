@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  pwn_mapmaster:
+    container_name: pwn_mapmaster
+    build:
+      context: .
+    ports:
+    - '10003:6000/tcp'
+    privileged: true

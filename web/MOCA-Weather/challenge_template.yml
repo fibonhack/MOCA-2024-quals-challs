@@ -1,0 +1,14 @@
+name: "MOCA weather"
+author: drw0if, b0n0b0
+
+description: Have you ever wondered what the weather is like in Pescara?
+port: 20005
+host: "challs.{{ CTFD_URL }}"
+connection_info: "http://{{ host }}:{{ port }}"
+# healthcheck: "checker.py HOST={{ host }} PORT={{ port }}"
+
+topics:
+- web
+
+files:
+- attachments/MOCA-weather.zip
